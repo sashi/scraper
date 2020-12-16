@@ -26,7 +26,7 @@ def scrape_url(ctx, url):
                 price = int(price_elem.text.strip())
                 
                 #only operate on the item if we've not seen it before and it's cheap
-                if url_elem not in seenlist and price < 1000:
+                if str(url_elem) not in seenlist and price < 1000:
                     print(title)
                     print(price)
                     print(url_elem)
