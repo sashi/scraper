@@ -6,6 +6,6 @@ Put your url in scraper.py
 <br /><br />
 Binaries/Apps Used
 <br/>
-<p style="margin-left: 40px"><li>Python 3
-<p style="margin-left: 40px"><li>BeautifulSoup
-<p style="margin-left: 40px"><li>Discord.py
+<li>Python 3
+<li>BeautifulSoup
+<li>Discord.py
