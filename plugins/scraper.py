@@ -40,10 +40,10 @@ class scraper(commands.Cog):
                     seenlist.append(url_elem)
                 
                     messageToSend = f"{str(title)}\n{str(price)}\n{str(url_elem)}\n"
-                    if not messageToSend == "\n\n\n":
-                        await ctx.send(messageToSend)
+                    await ctx.send(messageToSend)
             except:
                 pass
+        print(seenlist)
         seenfile.close()
     
     def __init__(self,bot):
