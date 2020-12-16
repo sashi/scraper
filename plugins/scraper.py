@@ -24,9 +24,10 @@ async def scrape_url(ctx, url):
                 title_elem = gpu_elem.find('a', class_="result-title hdrlnk")
                 title = title_elem.text.strip()
                 price = price_elem.text.strip()
+                price_int = int(price.replace("$",""))
 
                 #only operate on the item if we've not seen it before and it's cheap
-                if str(url_elem) not in seenlist :
+                if str(url_elem) not in seenlist and price_int < 600:
                     print(title)
                     print(price)
                     print(url_elem)
@@ -43,6 +44,7 @@ async def scrape_url(ctx, url):
                 pass
         print(seenlist)
         seenfile.close()
+
 
 class scraper(commands.Cog):
 
