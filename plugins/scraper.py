@@ -4,13 +4,7 @@ from discord.ext import commands
 from bs4 import BeautifulSoup
 import requests
 
-class scraper(commands.Cog):
-    
-    @commands.command(pass_context=True, brief="", name='scraper')
-    async def scraperCMD(self,ctx):
-        
-        url = "xxx"
- 
+def scrape_url(ctx, url):
         page = requests.get(url)
          
         print(page.content)
@@ -36,15 +30,28 @@ class scraper(commands.Cog):
                     print(title)
                     print(price)
                     print(url_elem)
-                    seenfile.write(url_elem)
-                    seenlist.append(url_elem)
+                    seenfile.write(str(url_elem))
+                    seenlist.append(str(url_elem))
                 
-                    messageToSend = f"{str(title)}\n{str(price)}\n{str(url_elem)}\n"
-                    await ctx.send(messageToSend)
+                    messageToSend = ""
+                    messageToSend = messageToSend + str(title)+"\n"
+                    messageToSend = messageToSend + str(price)+"\n"
+                    messageToSend = messageToSend + str(url_elem)+"\n"
+                    if not messageToSend == "":
+                        await ctx.send(messageToSend)
             except:
                 pass
         print(seenlist)
         seenfile.close()
+
+class scraper(commands.Cog):
+    
+    @commands.command(pass_context=True, brief="", name='scraper')
+    async def scraperCMD(self,ctx):
+        url = ""
+        scrape_url(ctx,url)
+
+    #TODO add more commands for different urls
     
     def __init__(self,bot):
         
