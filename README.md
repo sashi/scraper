@@ -6,5 +6,7 @@ Put token in config.ini <br />
 <br />
 Binaries/Apps Used
 <br/><br />
-BeautifulSoup
-Discord.py
+
+<li>Python 3
+<li>BeautifulSoup
+<li>Discord.py
