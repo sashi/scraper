@@ -30,7 +30,7 @@ async def scrape_url(ctx, url):
                     print(title)
                     print(price)
                     print(url_elem)
-                    seenfile.write(str(url_elem))
+                    seenfile.write(f"{str(url_elem)}\n")
                     seenlist.append(str(url_elem))
 
                     messageToSend = ""
@@ -47,28 +47,28 @@ async def scrape_url(ctx, url):
 class scraper(commands.Cog):
 
     @commands.command(pass_context=True, brief="", name='gtx1080')
-    async def scraperCMD(self,ctx):
+    async def gtx1080(self,ctx):
         url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=GTX 1080"
         await scrape_url(ctx,url)
 
     @commands.command(pass_context=True, brief="", name='rtx2060')
-    async def scraperCMD(self,ctx):
+    async def rtx2060(self,ctx):
         url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RTX 2060"
         await scrape_url(ctx,url)
 
     #TODO add more commands for different urls
     @commands.command(pass_context=True, brief="", name='rtx2070')
-    async def scraperCMD(self,ctx):
+    async def rtx2070(self,ctx):
         url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RTX 2070"
         await scrape_url(ctx,url)
 
     @commands.command(pass_context=True, brief="", name='rx5600')
-    async def scraperCMD(self,ctx):
+    async def rx5600(self,ctx):
         url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RX 5600"
         await scrape_url(ctx,url)
 
     @commands.command(pass_context=True, brief="", name='rx5700')
-    async def scraperCMD(self,ctx):
+    async def rx5700(self,ctx):
         url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RX 5700"
         await scrape_url(ctx,url)
 
