@@ -59,17 +59,17 @@ def run_client(token):
 def loadPlugins():
 	#bot.clear()
 	
-	activadedPlugins = []
+	activatedPlugins = []
 	with open(cogs_dir+"/activated.conf") as f:
-		activadedPlugins = f.readlines()
+		activatedPlugins = f.readlines()
 		
-	activadedPlugins = [x.strip() for x in activadedPlugins]
+	activatedPlugins = [x.strip() for x in activatedPlugins]
 	
 	if not getattr(sys, 'frozen', False):
 		for extension in [f for f in listdir(cogs_dir) if isfile(join(cogs_dir, f))]:
 			try:
 				if (str(extension)[-3:] == ".py") and (not str(extension) == "__init__.py"):
-					if extension[:-3] in activadedPlugins:
+					if extension[:-3] in activatedPlugins:
 						
 						'''
 						try:
@@ -92,7 +92,7 @@ def loadPlugins():
 				print('Failed to load extension {extension}.')
 				traceback.print_exc()
 	else:
-		for plugin in activadedPlugins:
+		for plugin in activatedPlugins:
 			
 			'''
 			try:

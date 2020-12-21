@@ -6,15 +6,23 @@ import requests
 
 async def scrape_url(ctx, url):
         page = requests.get(url)
+        request = requests.get(url)
 
         print(page.content)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find(class_="rows")
+        soup2 = BeautifulSoup(request.content, 'html.parser')
+        gpu_elems = results.find_all('li',class_="result-row")
 
+        all_tags = list(soup2.find_all('div', class_='alert alert-sm alert-warning'))
         gpu_elems = results.find_all('li',class_="result-row")
 
         seenfile = open('cl/listings.txt', 'r+')
         seenlist = [line.strip() for line in seenfile.readlines()]
+
+        for tag in all_tags:
+            if len(tag.text) > 0:
+                await ctx.send("No results")
 
         for gpu_elem in gpu_elems:
             try:
@@ -31,8 +39,8 @@ async def scrape_url(ctx, url):
                     print(title)
                     print(price)
                     print(url_elem)
-                    seenfile.write(f"{str(url_elem)}\n")
-                    seenlist.append(str(url_elem))
+                    #seenfile.write(f"{str(url_elem)}\n")
+                    #seenlist.append(str(url_elem))
 
                     messageToSend = ""
                     messageToSend = messageToSend + str(title)+"\n"
@@ -42,37 +50,24 @@ async def scrape_url(ctx, url):
                         await ctx.send(messageToSend)
             except:
                 pass
-        print(seenlist)
-        seenfile.close()
+        #print(seenlist)
+        #seenfile.close()
 
 
 class scraper(commands.Cog):
 
-    @commands.command(pass_context=True, brief="", name='gtx1080')
-    async def gtx1080(self,ctx):
-        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=GTX 1080"
+    @commands.command(pass_context=True, brief="", name='search')
+    async def searchCMD(self,ctx,*searchterm):
+        searchterm = " ".join(searchterm)
+        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?sort=pricedsc&query="+str(searchterm)
         await scrape_url(ctx,url)
 
-    @commands.command(pass_context=True, brief="", name='rtx2060')
-    async def rtx2060(self,ctx):
-        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RTX 2060"
+    @commands.command(pass_context=True, brief="", name='searchmax')
+    async def searchmaxCMD(self,ctx,searchterm,price):
+        #searchterm = "".join(searchterm)
+        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?sort=pricedsc&query="+str(searchterm)+"&max_price="+str(price)
         await scrape_url(ctx,url)
-
-    #TODO add more commands for different urls
-    @commands.command(pass_context=True, brief="", name='rtx2070')
-    async def rtx2070(self,ctx):
-        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RTX 2070"
-        await scrape_url(ctx,url)
-
-    @commands.command(pass_context=True, brief="", name='rx5600')
-    async def rx5600(self,ctx):
-        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RX 5600"
-        await scrape_url(ctx,url)
-
-    @commands.command(pass_context=True, brief="", name='rx5700')
-    async def rx5700(self,ctx):
-        url = "https://vancouver.craigslist.org/d/for-sale/search/sss?query=RX 5700"
-        await scrape_url(ctx,url)
+        #print(ctx,url)
 
 
 
